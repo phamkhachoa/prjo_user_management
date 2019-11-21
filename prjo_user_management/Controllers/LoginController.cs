@@ -17,6 +17,7 @@ namespace prjo_user_management.Controllers
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Autherize()
         {
@@ -28,7 +29,7 @@ namespace prjo_user_management.Controllers
 
             if(listErroMessage.Count == 0)
             {
-
+                    return RedirectToAction("ADM002", "ListUser");
             }
             else
             {
@@ -36,8 +37,6 @@ namespace prjo_user_management.Controllers
                 TempData["listErr"] = listErroMessage;
                 return RedirectToAction("ADM001", "Login");
             }
-
-            return View();
         }
     }
 }

@@ -28,5 +28,32 @@ namespace prjo_user_management.utils
 
             return false;
         }
+        /// <summary>
+        /// Get data from retquest or session.
+        /// </summary>
+        /// <param name="requestPara"></param>
+        /// <param name="sessionPara"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static T GetParameter<T>(object requestPara, object sessionPara, T defaultValue)
+        {
+            T value = default(T);
+            if(requestPara == null)
+            {
+                if(sessionPara == null)
+                {
+                    value = defaultValue;
+                } else
+                {
+                    value = (T)sessionPara;
+                }
+            } else
+            {
+                    value = (T) requestPara;
+            }
+
+            return value;
+
+        }
     }
 }

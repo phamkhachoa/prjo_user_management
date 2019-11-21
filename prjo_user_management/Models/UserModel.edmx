@@ -1,0 +1,283 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="user_managementModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="mst_group">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_name" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="mst_japan">
+          <Key>
+            <PropertyRef Name="code_level" />
+          </Key>
+          <Property Name="code_level" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="name_level" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_detail_user_japan">
+          <Key>
+            <PropertyRef Name="detail_user_japan_id" />
+          </Key>
+          <Property Name="detail_user_japan_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="code_level" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="start_date" Type="date" Nullable="false" />
+          <Property Name="end_date" Type="date" Nullable="false" />
+          <Property Name="total" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="group_id" Type="int" Nullable="false" />
+          <Property Name="login_name" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="full_name_kana" Type="varchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="tel" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="birthday" Type="date" Nullable="false" />
+          <Property Name="role" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="salt" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <Association Name="tbl_detail_user_japan_ibfk_1">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="tbl_detail_user_japan" Type="Self.tbl_detail_user_japan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tbl_detail_user_japan">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tbl_detail_user_japan_ibfk_2">
+          <End Role="mst_japan" Type="Self.mst_japan" Multiplicity="1" />
+          <End Role="tbl_detail_user_japan" Type="Self.tbl_detail_user_japan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_japan">
+              <PropertyRef Name="code_level" />
+            </Principal>
+            <Dependent Role="tbl_detail_user_japan">
+              <PropertyRef Name="code_level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tbl_user_ibfk_1">
+          <End Role="mst_group" Type="Self.mst_group" Multiplicity="1" />
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_group">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="tbl_user">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="user_managementModelStoreContainer">
+          <EntitySet Name="mst_group" EntityType="Self.mst_group" Schema="user_management" store:Type="Tables" />
+          <EntitySet Name="mst_japan" EntityType="Self.mst_japan" Schema="user_management" store:Type="Tables" />
+          <EntitySet Name="tbl_detail_user_japan" EntityType="Self.tbl_detail_user_japan" Schema="user_management" store:Type="Tables" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" Schema="user_management" store:Type="Tables" />
+          <AssociationSet Name="tbl_detail_user_japan_ibfk_1" Association="Self.tbl_detail_user_japan_ibfk_1">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_detail_user_japan" EntitySet="tbl_detail_user_japan" />
+          </AssociationSet>
+          <AssociationSet Name="tbl_detail_user_japan_ibfk_2" Association="Self.tbl_detail_user_japan_ibfk_2">
+            <End Role="mst_japan" EntitySet="mst_japan" />
+            <End Role="tbl_detail_user_japan" EntitySet="tbl_detail_user_japan" />
+          </AssociationSet>
+          <AssociationSet Name="tbl_user_ibfk_1" Association="Self.tbl_user_ibfk_1">
+            <End Role="mst_group" EntitySet="mst_group" />
+            <End Role="tbl_user" EntitySet="tbl_user" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="user_managementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="mst_group">
+          <Key>
+            <PropertyRef Name="group_id" />
+          </Key>
+          <Property Name="group_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_user" Relationship="Self.tbl_user_ibfk_1" FromRole="mst_group" ToRole="tbl_user" />
+        </EntityType>
+        <EntityType Name="mst_japan">
+          <Key>
+            <PropertyRef Name="code_level" />
+          </Key>
+          <Property Name="code_level" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name_level" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tbl_detail_user_japan" Relationship="Self.tbl_detail_user_japan_ibfk_2" FromRole="mst_japan" ToRole="tbl_detail_user_japan" />
+        </EntityType>
+        <EntityType Name="tbl_detail_user_japan">
+          <Key>
+            <PropertyRef Name="detail_user_japan_id" />
+          </Key>
+          <Property Name="detail_user_japan_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="code_level" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="start_date" Type="DateTime" Nullable="false" />
+          <Property Name="end_date" Type="DateTime" Nullable="false" />
+          <Property Name="total" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="mst_japan" Relationship="Self.tbl_detail_user_japan_ibfk_2" FromRole="tbl_detail_user_japan" ToRole="mst_japan" />
+          <NavigationProperty Name="tbl_user" Relationship="Self.tbl_detail_user_japan_ibfk_1" FromRole="tbl_detail_user_japan" ToRole="tbl_user" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="group_id" Type="Int32" Nullable="false" />
+          <Property Name="login_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="full_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="full_name_kana" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tel" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="birthday" Type="DateTime" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="salt" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="mst_group" Relationship="Self.tbl_user_ibfk_1" FromRole="tbl_user" ToRole="mst_group" />
+          <NavigationProperty Name="tbl_detail_user_japan" Relationship="Self.tbl_detail_user_japan_ibfk_1" FromRole="tbl_user" ToRole="tbl_detail_user_japan" />
+        </EntityType>
+        <Association Name="tbl_user_ibfk_1">
+          <End Role="mst_group" Type="Self.mst_group" Multiplicity="1" />
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_group">
+              <PropertyRef Name="group_id" />
+            </Principal>
+            <Dependent Role="tbl_user">
+              <PropertyRef Name="group_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tbl_detail_user_japan_ibfk_2">
+          <End Role="mst_japan" Type="Self.mst_japan" Multiplicity="1" />
+          <End Role="tbl_detail_user_japan" Type="Self.tbl_detail_user_japan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="mst_japan">
+              <PropertyRef Name="code_level" />
+            </Principal>
+            <Dependent Role="tbl_detail_user_japan">
+              <PropertyRef Name="code_level" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="tbl_detail_user_japan_ibfk_1">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="tbl_detail_user_japan" Type="Self.tbl_detail_user_japan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="tbl_detail_user_japan">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="user_managementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="mst_group" EntityType="Self.mst_group" />
+          <EntitySet Name="mst_japan" EntityType="Self.mst_japan" />
+          <EntitySet Name="tbl_detail_user_japan" EntityType="Self.tbl_detail_user_japan" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" />
+          <AssociationSet Name="tbl_user_ibfk_1" Association="Self.tbl_user_ibfk_1">
+            <End Role="mst_group" EntitySet="mst_group" />
+            <End Role="tbl_user" EntitySet="tbl_user" />
+          </AssociationSet>
+          <AssociationSet Name="tbl_detail_user_japan_ibfk_2" Association="Self.tbl_detail_user_japan_ibfk_2">
+            <End Role="mst_japan" EntitySet="mst_japan" />
+            <End Role="tbl_detail_user_japan" EntitySet="tbl_detail_user_japan" />
+          </AssociationSet>
+          <AssociationSet Name="tbl_detail_user_japan_ibfk_1" Association="Self.tbl_detail_user_japan_ibfk_1">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_detail_user_japan" EntitySet="tbl_detail_user_japan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="user_managementModelStoreContainer" CdmEntityContainer="user_managementEntities">
+          <EntitySetMapping Name="mst_group">
+            <EntityTypeMapping TypeName="user_managementModel.mst_group">
+              <MappingFragment StoreEntitySet="mst_group">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="group_name" ColumnName="group_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mst_japan">
+            <EntityTypeMapping TypeName="user_managementModel.mst_japan">
+              <MappingFragment StoreEntitySet="mst_japan">
+                <ScalarProperty Name="code_level" ColumnName="code_level" />
+                <ScalarProperty Name="name_level" ColumnName="name_level" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_detail_user_japan">
+            <EntityTypeMapping TypeName="user_managementModel.tbl_detail_user_japan">
+              <MappingFragment StoreEntitySet="tbl_detail_user_japan">
+                <ScalarProperty Name="detail_user_japan_id" ColumnName="detail_user_japan_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="code_level" ColumnName="code_level" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_user">
+            <EntityTypeMapping TypeName="user_managementModel.tbl_user">
+              <MappingFragment StoreEntitySet="tbl_user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="login_name" ColumnName="login_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="full_name_kana" ColumnName="full_name_kana" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="birthday" ColumnName="birthday" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

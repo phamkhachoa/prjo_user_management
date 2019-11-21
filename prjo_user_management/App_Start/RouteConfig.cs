@@ -16,7 +16,7 @@ namespace prjo_user_management
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "ADM001", id = UrlParameter.Optional }
+                defaults: new { controller = "ListUser", action = "ADM002", id = UrlParameter.Optional }
             );
         }
     }

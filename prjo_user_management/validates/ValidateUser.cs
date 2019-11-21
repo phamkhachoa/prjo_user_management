@@ -1,4 +1,6 @@
-﻿using prjo_user_management.utils;
+﻿using prjo_user_management.logics.impl;
+using prjo_user_management.Models;
+using prjo_user_management.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +30,33 @@ namespace prjo_user_management.validates
                 temp = false;
             }
 
+            if (temp)
+            {
+                temp = this.CheckUsernamePassword(username, password);
+            }
+
             return list;
         }
+
+
+        public bool CheckUsernamePassword (string username, string password)
+        {
+            TblUserLogicImpl tblLogic = new TblUserLogicImpl();
+
+            tbl_user tblUser = tblLogic.GetUserByUserName(username);
+
+            if(tblUser != null)
+            {
+                int kt = tblUser.password.CompareTo(password);
+                if (kt==0)
+                {
+                    return true;
+                }
+            }
+            list.Add(Constant.ER016);
+            return false;
+        }
+
+
     }
 }
