@@ -9,7 +9,7 @@ namespace prjo_user_management.Models
     {
         private int id;
         private string name;
-        private string birthday;
+        private System.DateTime birthday;
         private string email;
         private string tel;
         private string group_name;
@@ -27,7 +27,7 @@ namespace prjo_user_management.Models
         private string action;
         private string totalStr;
 
-        public UserInfor(int id, string name, string birthday, string email, string tel, string group_name, string name_level, System.DateTime? end_date, int total)
+        public UserInfor(int id, string name, System.DateTime birthday, string email, string tel, string group_name, string name_level, System.DateTime? end_date, int total)
         {
             this.id = id;
             this.name = name;
@@ -42,7 +42,7 @@ namespace prjo_user_management.Models
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
-        public string Birthday { get => birthday; set => birthday = value; }
+        public System.DateTime Birthday { get => birthday; set => birthday = value; }
         public string Email { get => email; set => email = value; }
         public string Tel { get => tel; set => tel = value; }
         public string Group_name { get => group_name; set => group_name = value; }

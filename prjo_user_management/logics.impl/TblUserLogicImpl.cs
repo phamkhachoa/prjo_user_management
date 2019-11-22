@@ -12,16 +12,27 @@ namespace prjo_user_management.logics.impl
         TblUserDaoImpl userDao;
         tbl_user tblUser;
 
-        public List<UserInfor> GetListUsers(int groupId, string fullName, string sortType, string sortByFullName, string sortByCodeLevel, string sortByEndDate)
+        public TblUserLogicImpl ()
         {
             userDao = new TblUserDaoImpl();
-            return userDao.GetListUsers(groupId, fullName, sortType, sortByFullName, sortByCodeLevel, sortByEndDate);
+        }
+
+
+        public List<UserInfor> GetListUsers(int offset, int limit, int groupId, string fullName, string sortType, string sortByFullName, string sortByCodeLevel, string sortByEndDate)
+        {
+            //userDao = new TblUserDaoImpl();
+            return userDao.GetListUsers(offset, limit,groupId, fullName, sortType, sortByFullName, sortByCodeLevel, sortByEndDate);
             //throw new NotImplementedException();
+        }
+
+        public int GetTotalUsers(int groupId, string fullName)
+        {
+            return userDao.GetTotalUsers(groupId, fullName);
         }
 
         public tbl_user GetUserByUserName(string login_name)
         {
-            userDao = new TblUserDaoImpl();
+            //userDao = new TblUserDaoImpl();
             tblUser = userDao.GetUserByUserName(login_name);
             return tblUser;
             //throw new NotImplementedException();

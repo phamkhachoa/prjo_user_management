@@ -15,5 +15,7 @@ namespace prjo_user_management.utils
         public static string SORT_INCREMENT = "asc";
 	    public static string SORT_DECREMENT = "desc";
         public static int DEFAULT_GROUPID = 0;
+        public static int ROW = 10;
+        public static int PAGE_DISPLAY_NUM = 3;
     }
 }

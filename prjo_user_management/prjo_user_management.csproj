@@ -217,6 +217,7 @@
     <Content Include="images\btn_bg.gif" />
     <Content Include="images\btn_wider_bg.gif" />
     <Content Include="images\logo-manager-user.gif" />
+    <Content Include="js\userTemp.js" />
     <Content Include="Models\UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>UserModel.edmx</DependentUpon>
