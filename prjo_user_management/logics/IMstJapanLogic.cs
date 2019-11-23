@@ -6,10 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace prjo_user_management.dao
+namespace prjo_user_management.logics
 {
-    interface IMstGroupDao
+    interface IMstJapanLogic
     {
-        List<MstGroup> GetAllMstGroup();
+        List<MstJapan> GetAllMstJapan();
     }
 }

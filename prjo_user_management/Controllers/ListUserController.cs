@@ -1,4 +1,6 @@
-﻿using prjo_user_management.logics.impl;
+﻿using Newtonsoft.Json;
+using prjo_user_management.entities;
+using prjo_user_management.logics.impl;
 using prjo_user_management.Models;
 using prjo_user_management.utils;
 using System;
@@ -6,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace prjo_user_management.Controllers
 {
@@ -56,7 +59,7 @@ namespace prjo_user_management.Controllers
             List<Int32> listPages = Common.getListPaging(totalUsers, Constant.ROW, currentPage);
 
             List<UserInfor> listUser = tUserLogic.GetListUsers(offset, Constant.ROW, groupId, full_name, sortType, sortByFullName, sortByCodeLevel, sortByEndDate);            
-            List<mst_group> listMstGroup = mstGroup.GetAllMstGroup();
+            List<MstGroup> listMstGroup = mstGroup.GetAllMstGroup();
 
             Session.Add("sortType", sortByFullName);
             Session.Add("sortByFullName", sortByFullName);
@@ -72,7 +75,28 @@ namespace prjo_user_management.Controllers
             ViewBag.totalUsers = totalUsers;
             ViewBag.listMstGroup = listMstGroup;
             ViewBag.listUser = listUser;
+
+
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult ADM002Add()
+        {
+            MstJapanLogicImpl mstJapan = new MstJapanLogicImpl();
+            MstGroupLogicImpl mstGroup = new MstGroupLogicImpl();
+            var result = new
+            {
+               listMstJapan =  mstJapan.GetAllMstJapan(),
+                listMstGroup = mstGroup.GetAllMstGroup()
+            };
+
+            //var json = JsonConvert.SerializeObject(mstJapan.GetAllMstJapan());
+
+            return Json(result);
+            //string mess = "Hello";
+            //return Json(new { mess = mess });
+
         }
     }
 }

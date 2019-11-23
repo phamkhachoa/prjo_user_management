@@ -1,4 +1,5 @@
-﻿using prjo_user_management.Models;
+﻿using prjo_user_management.entities;
+using prjo_user_management.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace prjo_user_management.logics
 {
     interface IMstGroupLogic
     {
-        List<mst_group> GetAllMstGroup();
+        List<MstGroup> GetAllMstGroup();
     }
 }

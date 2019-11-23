@@ -163,17 +163,23 @@
     <Compile Include="Controllers\ListUserController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="dao.impl\MstGroupDaoImpl.cs" />
+    <Compile Include="dao.impl\MstJapanDaoImpl.cs" />
     <Compile Include="dao.impl\TblUserDaoImpl.cs" />
     <Compile Include="dao\IMstGroupDao.cs" />
+    <Compile Include="dao\IMstJapanDao.cs" />
     <Compile Include="dao\ITblUserDao.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
+    <Compile Include="entities\MstGroup.cs" />
+    <Compile Include="entities\MstJapan.cs" />
     <Compile Include="entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="logics.impl\MstGroupLogicImpl.cs" />
+    <Compile Include="logics.impl\MstJapanLogicImpl.cs" />
     <Compile Include="logics.impl\TblUserLogicImpl.cs" />
     <Compile Include="logics\IMstGroupLogic.cs" />
+    <Compile Include="logics\IMstJapanLogic.cs" />
     <Compile Include="logics\ITblUserLogic.cs" />
     <Compile Include="Models\mst_group.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
@@ -217,6 +223,7 @@
     <Content Include="images\btn_bg.gif" />
     <Content Include="images\btn_wider_bg.gif" />
     <Content Include="images\logo-manager-user.gif" />
+    <Content Include="js\user.js" />
     <Content Include="js\userTemp.js" />
     <Content Include="Models\UserModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -252,6 +259,8 @@
     <Content Include="Views\Login\ADM001.cshtml" />
     <Content Include="Views\Shared\_layout.cshtml" />
     <Content Include="Views\ListUser\ADM002.cshtml" />
+    <Content Include="Views\ListUser\ADM002Adda.cshtml" />
+    <Content Include="Views\ListUser\ADM002Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

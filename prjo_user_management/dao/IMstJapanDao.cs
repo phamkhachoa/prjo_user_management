@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace prjo_user_management.dao
 {
-    interface IMstGroupDao
+    interface IMstJapanDao
     {
-        List<MstGroup> GetAllMstGroup();
+        List<MstJapan> GetAllMstJapan();
     }
 }
