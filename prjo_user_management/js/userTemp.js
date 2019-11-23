@@ -7,7 +7,7 @@
       allFields = $( [] ).add( name ).add( email ).add( password ),
       tips = $( ".validateTips" );
  
-    function updateTips( t ) {
+    function updateTips( t ) {d
       tips
         .text( t )
         .addClass( "ui-state-highlight" );
