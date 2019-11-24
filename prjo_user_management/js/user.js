@@ -31,4 +31,23 @@
 		$(".dialog-form").removeClass('showDialog');
 		$(".nen_mo").removeClass('showDialog');
 	});
+
+	$("#loginId").change(function(event) {
+		var loginId = $("#loginId").val();
+		$.ajax({
+			url: '/ListUser/validateLoginId',
+			type: 'POST',
+			dataType: 'json',
+			data: {loginId: loginId},
+			success: function(response){
+				$("#errLoginId").empty();
+				console.log(response);
+				if(response == "Err"){
+					$("#errLoginId").append('This login name has used. ');
+				} else {
+					$("#errLoginId").append('This login name can be used. ');
+				}
+			}
+		})		
+	});
 });

@@ -98,5 +98,23 @@ namespace prjo_user_management.Controllers
             //return Json(new { mess = mess });
 
         }
+
+        public JsonResult validateLoginId(string loginId)
+        {
+            TblUserLogicImpl tUserLogic = new TblUserLogicImpl();
+            string messLoginId;
+            //string loginId = Request.Form["loginId"];
+            var result = tUserLogic.GetUserByUserName(loginId);
+
+            if (result != null)
+            {
+                messLoginId = "Err";
+            }else
+            {
+                messLoginId = "Success";
+            }
+
+            return Json(messLoginId);
+        }
     }
 }
