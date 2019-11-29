@@ -38,8 +38,8 @@
     <Property Name="email" Type="varchar" MaxLength="255" Nullable="false" />
     <Property Name="tel" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="birthday" Type="date" Nullable="false" />
-    <Property Name="role" Type="varchar" MaxLength="255" Nullable="false" />
-    <Property Name="salt" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="role" Type="varchar" MaxLength="255" />
+    <Property Name="salt" Type="varchar" MaxLength="255" />
   </EntityType>
   <Association Name="tbl_detail_user_japan_ibfk_1">
     <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />

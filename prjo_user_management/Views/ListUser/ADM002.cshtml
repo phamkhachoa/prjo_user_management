@@ -19,7 +19,7 @@
                     </td>
                     <td></td>
                     <td align="left">
-                        <a href="/logout">ログアウト</a> &nbsp; <a href="./listUser">トップ</a>
+                        <a href="/logout">ログアウト</a> &nbsp; <a href="/Login/ADM001">トップ</a>
                     </td>
                     <td></td>
                 </tr>
@@ -61,7 +61,7 @@
                                         <option value="0">全て</option>
                                         @foreach (var mstGroup in ViewBag.listMstGroup)
                                         {
-                                            <option value="@mstGroup.Group_id" @(mstGroup.Group_id == (Int32)@Session["group_id"] ? "selected" : "")>
+                                            <option value="@mstGroup.Group_id" @(mstGroup.Group_id == (Int32)@Session["group_id"] ? "selected" : "")=)>
                                                 @mstGroup.Group_name
                                             </option>
                                         }
@@ -141,7 +141,7 @@
             {
                 <tr>
                     <td>
-                        <a href="#">@user.Id</a>
+                        <a href="#" class="viewUser">@user.Id</a>
                     </td>
                     <td>
                         @user.Name
@@ -233,8 +233,550 @@
     <div class="nen_mo"></div>
 
     <div class="dialog-form" title="Create new user">
-        @Html.Partial("ADM002Add")
+
+        <form>
+            <div id="close">+</div>
+            <table class="tbl_input" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th align="left">
+                        <div style="padding-top:20px;">
+                            会員情報編集
+                        </div>
+                    </th>
+                </tr>
+                <tr id="validateTips"></tr>
+                <tr>
+                    <td align="left">
+                        <div style="padding-left:100px;">
+                            <div id="errList">
+                                <p id="messLoginId"></p>
+                                <p id="messEmail"></p>
+                                <p id="messPhone"></p>
+                                <p id="messPass"></p>
+                            </div>
+                            <table border="0" class="tbl_input" cellpadding="4" cellspacing="0">
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font> アカウント名:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="text" name="loginId" value="" id="loginId"
+                                               size="15" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font> グループ:</td>
+                                    <td align="left">
+                                        <select name="group_id" id="groupChoose">
+                                            <option value="0">選択してください</option>
+                                        </select>
+                                        <span>&nbsp;&nbsp;&nbsp;</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font> 氏名:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="text" name="name" value="" id="fullName"
+                                               size="30" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">カタカナ氏名:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="text" name="name" value="" id="fullNameKana"
+                                               size="30" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font> 生年月日:</td>
+                                    <td align="left">
+                                        <select id="yearBirthday">
+                                            <option value="2000">2000</option>
+                                            <option value="2001">2001</option>
+                                            <option value="2002">2002</option>
+                                            <option value="2003">2003</option>
+                                            <option value="2004">2004</option>
+                                            <option value="2005">2005</option>
+                                            <option value="2006">2006</option>
+                                            <option value="2007">2007</option>
+                                            <option value="2008">2008</option>
+                                            <option value="2009">2009</option>
+                                            <option value="2010" selected="selected">2010</option>
+                                            <option value="2011">2011</option>
+                                        </select>年
+                                        <select id="monthBirthday">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12" selected="selected">12</option>
+                                        </select>月
+                                        <select id="dateBirthday">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31" selected="selected">31</option>
+                                        </select>日
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font> メールアドレス:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="text" id="email" value=""
+                                               size="30" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font>電話番号:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="text" name="tel" value="" id="tel"
+                                               size="30" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left"><font color="red">*</font> パスワード:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="password" id="password" value=""
+                                               size="30" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">パスワード（確認）:</td>
+                                    <td align="left">
+                                        <input class="txBox" type="password" name="email" value="" id="passwordConfirm"
+                                               size="30" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th align="left" colspan="2">
+                                        <p>日本語能力</p>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">資格:</td>
+                                    <td align="left">
+                                        <select name="kyu_id" id="codeLevel">
+                                            <option value="0">選択してください</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">資格交付日: </td>
+                                    <td align="left">
+                                        <select id="yearStart">
+                                            <option value="2000">2000</option>
+                                            <option value="2001">2001</option>
+                                            <option value="2002">2002</option>
+                                            <option value="2003">2003</option>
+                                            <option value="2004">2004</option>
+                                            <option value="2005">2005</option>
+                                            <option value="2006">2006</option>
+                                            <option value="2007">2007</option>
+                                            <option value="2008">2008</option>
+                                            <option value="2009">2009</option>
+                                            <option value="2010" selected="selected">2010</option>
+                                            <option value="2011">2011</option>
+                                        </select>年
+                                        <select id="monthStart">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12" selected="selected">12</option>
+                                        </select>月
+                                        <select id="dateStart">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31" selected="selected">31</option>
+                                        </select>日
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">失効日: </td>
+                                    <td align="left">
+                                        <select id="yearEnd">
+                                            <option value="2000">2000</option>
+                                            <option value="2001">2001</option>
+                                            <option value="2002">2002</option>
+                                            <option value="2003">2003</option>
+                                            <option value="2004">2004</option>
+                                            <option value="2005">2005</option>
+                                            <option value="2006">2006</option>
+                                            <option value="2007">2007</option>
+                                            <option value="2008">2008</option>
+                                            <option value="2009">2009</option>
+                                            <option value="2010" selected="selected">2010</option>
+                                            <option value="2011">2011</option>
+                                        </select>年
+                                        <select id="monthEnd">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12" selected="selected">12</option>
+                                        </select>月
+                                        <select id="dateEnd">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31" selected="selected">31</option>
+                                        </select>日
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">点数: </td>
+                                    <td align="left">
+                                        <input class="txBox" type="text" name="total" value="" id="total"
+                                               size="5" onfocus="this.style.borderColor='#0066ff';"
+                                               onblur="this.style.borderColor='#aaaaaa';" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <!-- Begin vung button -->
+            <div style="padding-left:45px;">
+                <table border="0" cellpadding="4" cellspacing="0" width="300px">
+                    <tr>
+                        <input type="hidden" id="userId" value="0" />
+                        <input type="hidden" name="type" value="${type}" />
+                        <input type="hidden" name="key" value="${key}" />
+                        <th width="200px" align="center">&nbsp;</th>
+                        <td>
+                            <input class="btn" type="button" value="確認" id="btnSubmit" />
+                        </td>
+                        <td>
+                            <input class="btn" type="button"  value="戻る" id="cancel03"/>
+                        </td>
+                    </tr>
+                </table>
+                <!-- End vung button -->
+            </div>
+        </form>
+        </form>
+
     </div>
+    <div class="dialog-form-confirm" title="Create new user">
+        <!-- Begin vung input-->
+        <form action="" method="post" name="inputform" id="ADM006" style="padding-top: 10px">
+            <table class="tbl_input" border="0"  cellpadding="0" cellspacing="0">
+                <tr>
+                    <th align="left">
+                        <div style="padding-left:100px;">
+                            情報確認<br />
+                            入力された情報をＯＫボタンクリックでＤＢへ保存してください
+                        </div>
+                        <div style="padding-left:100px;">&nbsp;</div>
+                    </th>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <div style="padding-left:100px;">
+                            <table border="1"  class="tbl_input" cellpadding="4" cellspacing="0">
+                                <tr>
+                                    <td class="lbl_left">アカウント名:</td>
+                                    <td align="left" id="loginId04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">グループ:</td>
+                                    <td align="left" id="groupId04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">氏名:</td>
+                                    <td align="left" id="fullName04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">カタカナ氏名:</td>
+                                    <td align="left" id="fullNameKata04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">生年月日:</td>
+                                    <td align="left" id="birthDay04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">メールアドレス:</td>
+                                    <td align="left" id="email04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">電話番号:</td>
+                                    <td align="left" id="tel04"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><a href="#">日本語能力</a></th>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">資格:</td>
+                                    <td align="left" id="code_level04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">資格交付日:</td>
+                                    <td align="left" id="startDate04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">失効日:</td>
+                                    <td align="left" id="endDate04"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">点数:</td>
+                                    <td align="left" id="total04"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="padding-left:100px;">&nbsp;</div>
+            <!-- Begin vung button -->
+            <div style="padding-left:45px;">
+                <table border="0" cellpadding="4" cellspacing="0" width="300px">
+                    <tr>
+                        <th width="200px" align="center">&nbsp;</th>
+                        <td>
+                            <input class="btn" type="button" value="OK" id="addUser"/>
+                        </td>
+                        <td>
+                            <input class="btn" type="button" value="戻る" id="cancel04" />
+                        </td>
+                    </tr>
+                </table>
+                <!-- End vung button -->
+            </div>
+        </form>
+        <!-- End vung input -->
+
+    </div>
+
+    <div class="updateSuccess" title="Create new user Success">
+        <!-- Begin vung input-->
+        <form action="ADM002" method="post" name="inputform">
+            <table class="tbl_input" border="0"  cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="center" colspan="2">
+                        <div style="height:50px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        ユーザの登録が完了しました。 or ユーザの更新が完了しました。 or ユーザの削除が完了しました。
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <div style="height:70px"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <input class="btn" type="submit" value="OK" id="btnSuccess" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+        <!-- End vung input -->
+    </div>
+    
+    <div class="viewUser-dialog">
+        <!-- Begin vung input-->
+        <form action="" method="post" name="inputform">
+            <table class="tbl_input" border="0" width="75%" cellpadding="0" cellspacing="0">
+                <tr>
+                    <th align="left">
+                        <div style="padding-top:20px;">
+                            情報確認
+                        </div>
+                        <div style="padding-left:100px;">&nbsp;</div>
+                    </th>
+                </tr>
+                <tr>
+                    <td align="left">
+                        <div style="padding-left:100px;">
+                            <table border="1" class="tbl_input" cellpadding="4" cellspacing="0">
+                                <tr>
+                                    <td class="lbl_left">アカウント名:</td>
+                                    <td align="left" id="loginId05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">グループ:</td>
+                                    <td align="left" id="groupId05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">氏名:</td>
+                                    <td align="left" id="fullName05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">カタカナ氏名:</td>
+                                    <td align="left" id="fullNameKata05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">生年月日:</td>
+                                    <td align="left" id="birthDay05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">メールアドレス:</td>
+                                    <td align="left" id="email05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">電話番号:</td>
+                                    <td align="left" id="tel05"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><a href="#">日本語能力</a></th>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">資格:</td>
+                                    <td align="left" id="code_level05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">資格交付日:</td>
+                                    <td align="left" id="startDate05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">失効日:</td>
+                                    <td align="left" id="endDate05"></td>
+                                </tr>
+                                <tr>
+                                    <td class="lbl_left">点数:</td>
+                                    <td align="left" id="total05"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+            <div style="padding-left:100px;">&nbsp;</div>
+            <!-- Begin vung button -->
+            <div style="padding-left:100px;">
+                <table border="0" cellpadding="4" cellspacing="0" width="300px">
+                    <tr>
+                        <th width="200px" align="center">&nbsp;</th>
+                        <td>
+                            <input class="btn" type="submit" value="編集" />
+                        </td>
+                        <td>
+                            <input class="btn" type="button" value="削除" />
+                        </td>
+                        <td>
+                            <input class="btn" type="button" value="戻る" />
+                        </td>
+                    </tr>
+                </table>
+                <!-- End vung button -->
+            </div>
+        </form>
+        <!-- End vung input -->
+    </div>
+
 </body>
 
 </html>

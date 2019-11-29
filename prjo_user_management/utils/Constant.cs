@@ -17,5 +17,6 @@ namespace prjo_user_management.utils
         public static int DEFAULT_GROUPID = 0;
         public static int ROW = 5;
         public static int PAGE_DISPLAY_NUM = 3;
+        public static string phoneRegex = "/^ ([0 - 9]) +$/";
     }
 }

@@ -3,6 +3,7 @@ using prjo_user_management.entities;
 using prjo_user_management.logics.impl;
 using prjo_user_management.Models;
 using prjo_user_management.utils;
+using prjo_user_management.validates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,11 @@ using System.Web.Script.Serialization;
 
 namespace prjo_user_management.Controllers
 {
+    [CustomAuthenticationFilter]
     public class ListUserController : Controller
-    {
+    {   
         // GET: ListUser
+
         public ActionResult ADM002()
         {
             string full_name = Common.GetParameter(Request.QueryString["full_name"], Session.Contents["full_name"], Constant.DEFAULT_FULLNAME);
@@ -30,17 +33,17 @@ namespace prjo_user_management.Controllers
             {
                 currentPage = Common.GetParameter(null, Session.Contents["currentPage"], 1);
 
-                if(Request.QueryString["group_id"] != null)
+                if (Request.QueryString["group_id"] != null)
                 {
                     currentPage = 1;
                 }
-                
+
             } else
             {
                 currentPage = Int32.Parse(currentPageStr);
             }
 
-            int offset = Common.getOffset(currentPage,Constant.ROW);
+            int offset = Common.getOffset(currentPage, Constant.ROW);
 
             TblUserLogicImpl tUserLogic = new TblUserLogicImpl();
             MstGroupLogicImpl mstGroup = new MstGroupLogicImpl();
@@ -58,7 +61,7 @@ namespace prjo_user_management.Controllers
             }
             List<Int32> listPages = Common.getListPaging(totalUsers, Constant.ROW, currentPage);
 
-            List<UserInfor> listUser = tUserLogic.GetListUsers(offset, Constant.ROW, groupId, full_name, sortType, sortByFullName, sortByCodeLevel, sortByEndDate);            
+            List<UserInfor> listUser = tUserLogic.GetListUsers(offset, Constant.ROW, groupId, full_name, sortType, sortByFullName, sortByCodeLevel, sortByEndDate);
             List<MstGroup> listMstGroup = mstGroup.GetAllMstGroup();
 
             Session.Add("sortType", sortByFullName);
@@ -66,7 +69,6 @@ namespace prjo_user_management.Controllers
             Session.Add("sortByCodeLevel", sortByCodeLevel);
             Session.Add("sortByEndDate", sortByEndDate);
             Session.Add("currentPage", currentPage);
-
             Session.Add("group_id", groupId);
             Session.Add("full_name", full_name);
 
@@ -87,7 +89,7 @@ namespace prjo_user_management.Controllers
             MstGroupLogicImpl mstGroup = new MstGroupLogicImpl();
             var result = new
             {
-               listMstJapan =  mstJapan.GetAllMstJapan(),
+                listMstJapan = mstJapan.GetAllMstJapan(),
                 listMstGroup = mstGroup.GetAllMstGroup()
             };
 
@@ -99,22 +101,20 @@ namespace prjo_user_management.Controllers
 
         }
 
-        public JsonResult validateLoginId(string loginId)
+        //[Route("ListUser/validateUserInfor1")]
+        public JsonResult validateUserInfor(UserInfor userInfor)
+        {
+            ValidateUser validateUser = new ValidateUser();
+            List<string> listErr = validateUser.validateUserInfor(userInfor);
+
+            return Json(listErr);
+        }
+
+        public JsonResult AddUser(UserInfor userInfor)
         {
             TblUserLogicImpl tUserLogic = new TblUserLogicImpl();
-            string messLoginId;
-            //string loginId = Request.Form["loginId"];
-            var result = tUserLogic.GetUserByUserName(loginId);
-
-            if (result != null)
-            {
-                messLoginId = "Err";
-            }else
-            {
-                messLoginId = "Success";
-            }
-
-            return Json(messLoginId);
+            return Json(tUserLogic.AddUser(userInfor));
         }
+
     }
 }

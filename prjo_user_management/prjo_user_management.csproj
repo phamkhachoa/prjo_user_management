@@ -181,6 +181,7 @@
     <Compile Include="logics\IMstGroupLogic.cs" />
     <Compile Include="logics\IMstJapanLogic.cs" />
     <Compile Include="logics\ITblUserLogic.cs" />
+    <Compile Include="Models\CustomAuthenticationFilter.cs" />
     <Compile Include="Models\mst_group.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
@@ -193,6 +194,7 @@
     <Compile Include="Models\tbl_user.cs">
       <DependentUpon>UserModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Test.cs" />
     <Compile Include="Models\UserInfor.cs" />
     <Compile Include="Models\UserModel.Context.cs">
       <AutoGen>True</AutoGen>
@@ -259,8 +261,8 @@
     <Content Include="Views\Login\ADM001.cshtml" />
     <Content Include="Views\Shared\_layout.cshtml" />
     <Content Include="Views\ListUser\ADM002.cshtml" />
-    <Content Include="Views\ListUser\ADM002Adda.cshtml" />
-    <Content Include="Views\ListUser\ADM002Add.cshtml" />
+    <Content Include="Views\ListUser\ADM003.cshtml" />
+    <Content Include="Views\ListUser\ADM004.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

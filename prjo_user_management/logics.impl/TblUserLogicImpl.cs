@@ -17,6 +17,11 @@ namespace prjo_user_management.logics.impl
             userDao = new TblUserDaoImpl();
         }
 
+        public bool AddUser(UserInfor userInfor)
+        {
+            return userDao.AddUser(userInfor);
+            //throw new NotImplementedException();
+        }
 
         public List<UserInfor> GetListUsers(int offset, int limit, int groupId, string fullName, string sortType, string sortByFullName, string sortByCodeLevel, string sortByEndDate)
         {

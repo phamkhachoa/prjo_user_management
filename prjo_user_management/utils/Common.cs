@@ -21,7 +21,7 @@ namespace prjo_user_management.utils
         /// </returns>
         public static bool IsEmpty(string str)
         {
-            if ("".Equals(str))
+            if ("".Equals(str)|| (str == null))
             {
                 return true;
             }

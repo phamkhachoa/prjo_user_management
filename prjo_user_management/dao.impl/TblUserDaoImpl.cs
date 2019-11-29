@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using prjo_user_management.Data;
 using prjo_user_management.Models;
@@ -11,6 +13,54 @@ namespace prjo_user_management.dao.impl
     public class TblUserDaoImpl : ITblUserDao
     {
         DatabaseContext context;
+
+        public bool AddUser(UserInfor userInfor)
+        {
+            context = new DatabaseContext();
+            tbl_user tblUser = new tbl_user();
+            //tblUser.user_id = 70;
+            tblUser.group_id = userInfor.GroupId;
+            tblUser.login_name = userInfor.Login_name;
+            tblUser.password = userInfor.Password;
+            tblUser.full_name = userInfor.Name;
+            tblUser.full_name_kana = userInfor.Full_name_kana;
+            tblUser.email = userInfor.Email;
+            tblUser.tel = userInfor.Tel;
+            tblUser.birthday = DateTime.ParseExact(userInfor.BirthdayStr, "dd/mm/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            context.TblUsers.Add(tblUser);
+
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    context.SaveChanges();
+                    if (userInfor.Code_level != "0")
+                    {
+                        int newPK = tblUser.user_id;
+                        tbl_detail_user_japan tblUserJapan = new tbl_detail_user_japan();
+                        tblUserJapan.user_id = newPK;
+                        tblUserJapan.code_level = userInfor.Code_level;
+                        tblUserJapan.start_date = DateTime.ParseExact(userInfor.StartDateStr, "dd/mm/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                        tblUserJapan.end_date = DateTime.ParseExact(userInfor.EndDateStr, "dd/mm/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                        tblUserJapan.total = Int32.Parse(userInfor.TotalStr);
+                        context.TblDetailJ.Add(tblUserJapan);
+                        context.SaveChanges();
+                    }
+                    transaction.Commit();
+
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    return false;
+                }
+            }
+
+
+            //int newPK = tblUser.user_id;
+            return true;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -32,7 +82,7 @@ namespace prjo_user_management.dao.impl
                          join mj in context.MstJapans on gr1.code_level equals mj.code_level into group2
                          from gr2 in group2.DefaultIfEmpty()
                          where ((groupId <= 0 || u.group_id == groupId) && (string.IsNullOrEmpty(fullName) || u.full_name.Contains(fullName))
-                         )
+                         ) 
                          //orderby (sortByFullName == "desc" ? u.full_name descending : u.full_name ascending)
                          //orderby u.full_name sortByFullName == "desc" ? descending :  ascending
                          select new
@@ -60,100 +110,7 @@ namespace prjo_user_management.dao.impl
                     break;
             }
 
-            //switch (sortType)
-            //{
-            //    case "full_name":
-            //        switch (sortByFullName)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.full_name);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.full_name);
-            //                break;
-            //        }
-
-            //        switch (sortByCodeLevel)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.code_level);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.code_level);
-            //                break;
-            //        }
-            //        switch (sortByEndDate)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.end_date);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.end_date);
-            //                break;
-            //        }
-            //        break;
-
-            //    case "code_level":
-            //        switch (sortByCodeLevel)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.code_level);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.code_level);
-            //                break;
-            //        }
-            //        switch (sortByFullName)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.full_name);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.full_name);
-            //                break;
-            //        }
-            //        switch (sortByEndDate)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.end_date);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.end_date);
-            //                break;
-            //        }
-            //        break;
-
-            //    case "end_date":
-            //        switch (sortByEndDate)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.end_date);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.end_date);
-            //                break;
-            //        }
-            //        switch (sortByFullName)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.full_name);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.full_name);
-            //                break;
-            //        }
-
-            //        switch (sortByCodeLevel)
-            //        {
-            //            case "asc":
-            //                query = query.OrderBy(x => x.code_level);
-            //                break;
-            //            case "desc":
-            //                query = query.OrderByDescending(x => x.code_level);
-            //                break;
-            //        }
-            //        break;
-            //}
+            //query = query.Where(x => x.role == 0);
             query = query.Skip(offset).Take(limit);
             //query.Take(limit);
             query.ToList();
@@ -163,7 +120,6 @@ namespace prjo_user_management.dao.impl
                 listUsers.Add(new UserInfor(el.user_id, el.full_name, el.birthday, el.email, el.tel, el.group_name, el.name_level, el.end_date, el.total));
                 //DateTime date = null;
             }
-
             return listUsers;
         }
         /// <summary>

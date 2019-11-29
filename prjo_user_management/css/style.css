@@ -101,7 +101,21 @@
 
 .dialog-form {
     width: 600px;
-    height: 700px;
+    height: 800px;
+    background-color: white;
+    margin-left: 20%;
+    margin-top: 5%;
+    opacity: 0;
+    z-index: 2;
+    top: 0px;
+    visibility: hidden;
+    position: fixed;
+}
+
+
+.dialog-form-confirm {
+    width: 600px;
+    height: 600px;
     background-color: white;
     margin-left: 20%;
     margin-top: 5%;
@@ -120,6 +134,33 @@
 }
 
 .showDialog {
-	visibility: visible;
-	opacity: 1;
+	visibility: visible !important;
+	opacity: 1 !important;
+}
+
+.updateSuccess {
+    border: 2px;
+    width: 600px;
+    height: 200px;
+    background-color: white;
+    margin-left: 20%;
+    margin-top: 5%;
+    opacity: 0;
+    z-index: 3;
+    top: 0px;
+    visibility: hidden;
+    position: fixed;
+}
+
+.viewUser-dialog {
+    width: 600px;
+    height: 600px;
+    background-color: white;
+    margin-left: 20%;
+    margin-top: 5%;
+    opacity: 0;
+    z-index: 2;
+    top: 0px;
+    visibility: hidden;
+    position: fixed;
 }

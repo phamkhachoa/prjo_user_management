@@ -13,6 +13,10 @@ namespace prjo_user_management.Controllers
         // GET: Login
         public ActionResult ADM001()
         {
+            if (!string.IsNullOrEmpty(Convert.ToString(Session["username"])))
+            {
+                Session.Remove("username");
+            }
             ViewBag.listErr = TempData["listErr"];
             return View();
         }
@@ -29,7 +33,8 @@ namespace prjo_user_management.Controllers
 
             if(listErroMessage.Count == 0)
             {
-                    return RedirectToAction("ADM002", "ListUser");
+                Session.Add("username", username);
+                return RedirectToAction("ADM002", "ListUser");
             }
             else
             {

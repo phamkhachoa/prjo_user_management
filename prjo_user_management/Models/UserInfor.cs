@@ -10,18 +10,21 @@ namespace prjo_user_management.Models
         private int id;
         private string name;
         private System.DateTime birthday;
+        private string birthdayStr;
         private string email;
         private string tel;
         private string group_name;
         private int groupId;
         private string name_level;
         private System.DateTime? end_date;
+        private string endDateStr;
         private int total;
         private string login_name;
         private string full_name_kana;
         private string password;
         private string passwordConfirm;
         private System.DateTime start_date;
+        private string startDateStr;
         private string code_level;
         private int role;
         private string action;
@@ -39,6 +42,7 @@ namespace prjo_user_management.Models
             this.end_date = end_date;
             this.total = total;
         }
+        public UserInfor() { }
 
         public int Id { get => id; set => id = value; }
         public string Name { get => name; set => name = value; }
@@ -59,5 +63,8 @@ namespace prjo_user_management.Models
         public int Role { get => role; set => role = value; }
         public string Action { get => action; set => action = value; }
         public string TotalStr { get => totalStr; set => totalStr = value; }
+        public string BirthdayStr { get => birthdayStr; set => birthdayStr = value; }
+        public string EndDateStr { get => endDateStr; set => endDateStr = value; }
+        public string StartDateStr { get => startDateStr; set => startDateStr = value; }
     }
 }

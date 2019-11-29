@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="user_managementModelStoreContainer" CdmEntityContainer="user_managementEntities">
+  <EntityContainerMapping StorageEntityContainer="user_managementModelStoreContainer" CdmEntityContainer="user_managementEntities1">
     <EntitySetMapping Name="mst_group">
       <EntityTypeMapping TypeName="user_managementModel.mst_group">
         <MappingFragment StoreEntitySet="mst_group">
